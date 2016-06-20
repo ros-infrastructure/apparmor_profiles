@@ -1,5 +1,5 @@
-#include <ros/global>
 #include <tunables/global>
+#include <tunables/ros>
 
 /opt/ros/kinetic/bin/rosmaster {
   #include <ros/base>

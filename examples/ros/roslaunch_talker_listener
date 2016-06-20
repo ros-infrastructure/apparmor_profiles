@@ -1,6 +1,6 @@
 # Last Modified: Wed Jun  8 16:23:41 2016
-#include <ros/global>
 #include <tunables/global>
+#include <tunables/ros>
 
 /opt/ros/*/bin/roslaunch {
   #include <ros/nodes/roslaunch>
