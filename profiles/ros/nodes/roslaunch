@@ -17,6 +17,7 @@ signal send peer=@{ROS_INSTALL}/**,
 
 /bin/dash ix,
 /bin/netstat rix,
+/run/uuidd/request rw,
 /sbin/ifconfig rix,
 /sbin/ldconfig* rix,
 /usr/bin/du ix,
