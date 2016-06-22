@@ -1,22 +1,21 @@
-# Last Modified: Wed Jun  8 16:23:41 2016
 #include <tunables/global>
 #include <tunables/ros>
 
-/opt/ros/kinetic/bin/roslaunch {
+profile ros/roslaunch @{ROS_INSTALL_BIN}/roslaunch {
   #include <ros/nodes/roslaunch>
 
   @{ROS_INSTALL_BIN}/roslaunch rix,
-
 }
-/opt/ros/kinetic/bin/rosmaster {
+
+profile ros/rosmaster @{ROS_INSTALL_BIN}/rosmaster {
   #include <ros/base>
   #include <ros/node>
   #include <ros/python>
 
   @{ROS_INSTALL_BIN}/rosmaster rix,
-
 }
-/opt/ros/kinetic/bin/roscore {
+
+profile ros/roscore @{ROS_INSTALL_BIN}/{,s}roscore {
   #include <abstractions/openssl>
   #include <ros/nodes/roslaunch>
 
@@ -24,36 +23,36 @@
   /usr/bin/openssl rix,
   @{ROS_INSTALL_BIN}/roslaunch rix,
   @{ROS_INSTALL_BIN}/{,s}roscore rix,
-
 }
-/opt/ros/kinetic/lib/rosout/rosout {
+
+profile ros/rosout @{ROS_INSTALL_LIB}/rosout/* {
   #include <ros/base>
   #include <ros/node>
 
   @{ROS_INSTALL_LIB}/rosout/rosout rix,
-
 }
-/opt/ros/kinetic/share/rosoutpy/scripts/rosoutpy {
+
+profile ros/rosoutpy @{ROS_INSTALL_SHARE}/rosoutpy/* {
   #include <ros/base>
   #include <ros/node>
   #include <ros/python>
 
   @{ROS_INSTALL_SHARE}/rosoutpy/scripts/rosoutpy rix,
-
 }
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/listener.py {
-  #include <ros/base>
-  #include <ros/node>
-  #include <ros/python>
 
-  @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/listener.py r,
-
-}
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py {
+profile ros/talker_listener_py @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/{talker,listener}* {
   #include <ros/base>
   #include <ros/node>
   #include <ros/python>
 
   @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/talker.py r,
+  @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/listener.py r,
+}
 
+profile ros/talker_listener_cpp @{ROS_INSTALL_LIB}/roscpp_tutorials/{talker,listener}* {
+  #include <ros/base>
+  #include <ros/node>
+
+  @{ROS_INSTALL_LIB}/roscpp_tutorials/listener rix,
+  @{ROS_INSTALL_LIB}/roscpp_tutorials/talker rix,
 }
