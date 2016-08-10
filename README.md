@@ -3,7 +3,22 @@ This folder contains AppArmor profiles for ROS. [AppArmor](http://wiki.apparmor.
 
 ## Installation
 
-To install the profiles, copy the contents of the `ros` folder from within the profiles directory to `/etc/apparmor.d/`. This will place the necessary ROS abstractions and tunables where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
+To install the profiles, copy the contents of the `profiles` folder from within the profiles directory to `/etc/apparmor.d/`. This will place the necessary ROS abstractions and tunables where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
+
+``` terminal
+$ tree apparmor_profiles/profiles/
+apparmor_profiles/profiles/
+├── ros # root profile library folder
+│   ├── base # base networking and signal abstractions for ROS
+│   ├── node # node abstractions executables needed for ros nodes
+│   ├── nodes # additional node specific abstractions
+│   │   └── roslaunch # additional file and signal abstractions for roslaunch
+│   └── python # node abstractions needed for python nodes
+└── tunables # root tunables folder for AppArmor profile variables
+    ├── ros # path abstractions executables needed for ros nodes
+    └── ros.d # additional distro specific abstractions
+        └── kinetic # path definition for default kinetic install
+```
 
 To reload AppArmor and invoke the added profiles, you can restart the the AppArmor service:
 
