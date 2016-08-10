@@ -22,7 +22,3 @@ signal (receive) peer=@{ROS_INSTALL_BIN}/{,s}roscore,
 
 # Allow us to signal ourselves
 signal peer=@{profile_name},
-
-# Network permissions
-#network inet stream,
-#network inet6 stream,

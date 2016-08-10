@@ -3,7 +3,7 @@ This folder contains AppArmor profiles for ROS. [AppArmor](http://wiki.apparmor.
 
 ## Installation
 
-To install the profiles, copy the `ros` folder from within the profiles directory to `/etc/apparmor.d/ros`. This will place the necessary ROS profiles where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
+To install the profiles, copy the contents of the `ros` folder from within the profiles directory to `/etc/apparmor.d/`. This will place the necessary ROS abstractions and tunables where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
 
 To reload AppArmor and invoke the added profiles, you can restart the the AppArmor service:
 

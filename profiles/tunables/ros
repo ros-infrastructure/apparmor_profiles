@@ -8,16 +8,16 @@
 #
 # ------------------------------------------------------------------
 
-# @{HOME} is a space-separated list of all user home directories. While
-# it doesn't refer to a specific home directory (AppArmor doesn't
+# @{ROS_LOCAL} is a space-separated list of all user's local .ros directories.
+# While it doesn't refer to a specific home directory (AppArmor doesn't
 # enforce discretionary access controls) it can be used as if it did
-# refer to a specific home directory. @{ROS_LOCAL} are local .ros paths
+# refer to a specific home directory.
 @{ROS_LOCAL}=@{HOME}/.ros
 
 # @{ROS_INSTALL} is the installation location for the ros distro
 # Also, include files in ros/home.d for site-specific adjustments to
 #@{ROS_INSTALL}
-#include <ros/home.d>
+#include <tunables/ros.d>
 
 # @{ROS_INSTALL_BIN} is the installation location for bin folder
 @{ROS_INSTALL_BIN}=@{ROS_INSTALL}/bin

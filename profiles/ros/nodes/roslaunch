@@ -14,16 +14,17 @@
 #include <ros/python>
 
 signal send peer=@{ROS_INSTALL}/**,
+signal send peer=ros/**,
 
 /bin/dash ix,
 /bin/netstat rix,
+/run/uuidd/request rw,
 /sbin/ifconfig rix,
 /sbin/ldconfig* rix,
 /usr/bin/du ix,
 /usr/bin/env ix,
 /usr/bin/rosversion rix,
 /usr/sbin/arp rix,
-owner @{HOME}/* mw,
 @{PROC}*/mounts r,
 @{PROC}*/net/arp r,
 @{PROC}*/net/dev r,
