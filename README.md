@@ -69,8 +69,8 @@ source /opt/ros/kinetic/setup.bash
 Once you've installed the ROS AppArmor profiles, you can start using them in other profiles you create. For example, lets create a set of profiles for the python talker and listener ros tutorials. Create a file at `/etc/apparmor.d/rosmaster_talker_listener`, and paste in the fallowing profiles within the new file:
 
 ``` terminal
-#include <ros/global>
 #include <tunables/global>
+#include <tunables/ros>
 
 /opt/ros/kinetic/bin/rosmaster {
   #include <ros/base>
