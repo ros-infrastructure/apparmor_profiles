@@ -11,7 +11,7 @@
 # Include basic node abstractions and excutables needed for ros nodes
 
 @{ROS_INSTALL_LIB}/lib*.so* mr,
-owner @{ROS_HOME}/** rw,
+owner @{ROS_HOME}/{,**} mrwkl,
 
 # CHECKME: Do non-python nodes still need these?
 #/{,usr/}bin/uname ixr,
