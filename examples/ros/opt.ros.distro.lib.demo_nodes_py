@@ -6,7 +6,7 @@ profile demo_nodes_py/talker @{ROS_INSTALL_LIB}/demo_nodes_py/talker {
   #include <ros/node>
   #include <ros/python>
 
-  @{ROS_INSTALL_SHARE}/demo_nodes_py/{,talker} r,
+  @{ROS_INSTALL_SHARE}/demo_nodes_py/talker r,
 }
 
 profile demo_nodes_py/listener @{ROS_INSTALL_LIB}/demo_nodes_py/listener {
@@ -14,5 +14,5 @@ profile demo_nodes_py/listener @{ROS_INSTALL_LIB}/demo_nodes_py/listener {
   #include <ros/node>
   #include <ros/python>
 
-  @{ROS_INSTALL_SHARE}/demo_nodes_py/{,listener} r,
+  @{ROS_INSTALL_SHARE}/demo_nodes_py/listener r,
 }
