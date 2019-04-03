@@ -23,4 +23,4 @@
 @{ROS_INSTALL_SHARE}=@{ROS_INSTALL}/share
 
 # @{ROS_INSTALL_PYTHON} is the installation location for ros python
-@{ROS_INSTALL_PYTHON}=@{ROS_INSTALL_LIB}/python{3,3.?*}
+@{ROS_INSTALL_PYTHON}=@{ROS_INSTALL_LIB}/python3.[0-6]
