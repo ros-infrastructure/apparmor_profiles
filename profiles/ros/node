@@ -10,10 +10,9 @@
 
 # Include basic node abstractions and excutables needed for ros nodes
 
-/{,usr/}bin/dash ixr,
-/{,usr/}bin/uname ixr,
-@{ROS_INSTALL_LIB}{,/}** r,
-@{ROS_INSTALL_SHARE}{,/}** r,
-owner @{ROS_LOCAL}{,/}** rw,
+@{ROS_INSTALL_LIB}/lib*.so mr,
+owner @{ROS_HOME}/** rw,
 
-/usr/bin/env r,
+# CHECKME: Do non-python nodes still need these?
+#/{,usr/}bin/uname ixr,
+#/usr/bin/env r,

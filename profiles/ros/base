@@ -10,14 +10,16 @@
 
 # Include base and networking abstractions needed for ros
 #include <abstractions/base>
-#include <abstractions/nameservice>
-#include <abstractions/user-tmp>
+
+# CHECKME: Is the rest of this no longer seems necessary?
+# #include <abstractions/nameservice>
+# #include <abstractions/user-tmp>
 
 # Allow unconfined processes to send us signals by default
-signal (receive) peer=unconfined,
+# signal (receive) peer=unconfined,
 
 # Allow us to receive signals from ros tools
-signal receive peer=ros/roslaunch,
+# signal receive peer=ros/roslaunch,
 
 # Allow us to signal ourselves
-signal peer=@{profile_name},
+# signal peer=@{profile_name},
