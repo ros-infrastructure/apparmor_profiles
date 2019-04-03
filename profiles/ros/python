@@ -21,15 +21,15 @@
 @{PROC}/@{pid}/environ r,
 @{PROC}/@{pid}/fd/ r,
 
-# CHECKME: Could if `python{3,3.?*}` is too relaxed?
-/usr/bin/python{3,3.?*} ix,
-/usr/local/lib/python{3,3.?*}/dist-packages** mr,
+# CHECKME: is `python3.[0-6]` too relaxed?
+/usr/bin/python3.[0-6] ix,
+/usr/local/lib/python3.[0-6]/dist-packages** mr,
 
-# CHECKME: is `owner` really necessary for non-home paths?
-owner @{ROS_INSTALL_PYTHON}/site-packages/** mr,
+# CHECKME: is `owner` necessary for non-home paths?
+@{ROS_INSTALL_PYTHON}/site-packages/{,**} mr,
 owner @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__/ w,
-owner @{HOME}/.local/lib/python{3,3.?*}/site-packages/** mr,
-owner @{HOME}/.local/lib/python{3,3.?*}/site-packages/**/__pycache__/ w,
+owner @{HOME}/.local/lib/python3.[0-6]/site-packages/{,**} mr,
+owner @{HOME}/.local/lib/python3.[0-6]/site-packages/**/__pycache__/ w,
 
 # CHECKME: why are each of these needed?
 /etc/apt/apt.conf.d/** r,
