@@ -23,13 +23,13 @@
 
 # CHECKME: is `python3.[0-6]` too relaxed?
 /usr/bin/python3.[0-6] ix,
-/usr/local/lib/python3.[0-6]/dist-packages** mr,
+/usr/local/lib/python3.[0-6]/dist-packages/{,**} mr,
 
 # CHECKME: is `owner` necessary for non-home paths?
 @{ROS_INSTALL_PYTHON}/site-packages/{,**} mr,
-owner @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__/ w,
+owner @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__ w,
 owner @{HOME}/.local/lib/python3.[0-6]/site-packages/{,**} mr,
-owner @{HOME}/.local/lib/python3.[0-6]/site-packages/**/__pycache__/ w,
+owner @{HOME}/.local/lib/python3.[0-6]/site-packages/**/__pycache__ w,
 
 # CHECKME: why are each of these needed?
 /etc/apt/apt.conf.d/** r,
