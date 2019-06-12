@@ -8,7 +8,7 @@
 #
 # ------------------------------------------------------------------
 
-# Include basic node abstractions and excutables needed for ros nodes
+# Include basic node abstractions needed for ros nodes
 
 @{ROS_INSTALL_LIB}/lib*.so* mr,
 owner @{ROS_HOME}/{,**} mrwkl,
