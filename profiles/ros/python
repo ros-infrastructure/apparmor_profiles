@@ -34,6 +34,3 @@ deny owner @{HOME}/.local/lib/python3.[0-9]*/site-packages/**/__pycache__ w,
 /etc/default/apport r,
 /usr/share/dpkg/cputable r,
 /usr/share/dpkg/tupletable r,
-
-# CHECKME: Why are nodes trying to read OpenSSL Configuration File
-#/etc/ssl/openssl.cnf r,
