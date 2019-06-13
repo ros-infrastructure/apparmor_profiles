@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2016 Open Source Robotics Foundation
+#    Copyright (C) 2019 Open Source Robotics Foundation
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -8,7 +8,5 @@
 #
 # ------------------------------------------------------------------
 
-# Include python abstractions and excutables needed for ros with python
-#include <abstractions/python>
-
-/usr/bin/python{2,2.[4-7],3,3.[0-5]} rix,
+# Include most abstractions needed for ros nodes
+#include <ros/node.d>

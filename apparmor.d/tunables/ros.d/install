@@ -1,0 +1,13 @@
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2019 Open Source Robotics Foundation
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+# The following is a space-separated list of where additional ros install
+# directories are stored. Directories added here are appended to @{ROS_INSTALL}.
+@{ROS_INSTALL}=/opt/ros/*
