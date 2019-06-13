@@ -8,11 +8,9 @@
 #
 # ------------------------------------------------------------------
 
-# Include basic node abstractions needed for ros nodes
-
-@{ROS_INSTALL_LIB}/lib*.so* mr,
-owner @{ROS_HOME}/log/{,**} rwk,
-
-# CHECKME: Do non-python nodes still need these?
-#/{,usr/}bin/uname ixr,
-#/usr/bin/env r,
+# Include most abstractions needed for ros nodes
+#include <ros/base>
+#include <ros/lib>
+#include <ros/log>
+#include <ros/net>
+#include <ros/security>
