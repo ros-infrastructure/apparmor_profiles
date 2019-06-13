@@ -21,9 +21,9 @@
 @{PROC}/@{pid}/environ r,
 @{PROC}/@{pid}/fd/ r,
 
-# CHECKME: is `python3.[0-6]` too relaxed?
-/usr/bin/python3.[0-6] ix,
-/usr/local/lib/python3.[0-6]/dist-packages/{,**} mr,
+# CHECKME: is `python3.[0-9]*` too relaxed?
+/usr/bin/python3.[0-9]* ix,
+/usr/local/lib/python3.[0-9]*/dist-packages/{,**} mr,
 
 # CHECKME: is `owner` necessary for non-home paths?
 @{ROS_INSTALL_PYTHON}/site-packages/{,**} mr,
