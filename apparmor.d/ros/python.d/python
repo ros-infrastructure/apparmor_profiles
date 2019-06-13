@@ -25,9 +25,9 @@ owner @{PROC}/@{pid}/fd/ r,
 /usr/local/lib/python3.[0-9]*/dist-packages/{,**} mr,
 
 @{ROS_INSTALL_PYTHON}/site-packages/{,**} mr,
-deny @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__/ w,
+deny @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__/{,**} w,
 owner @{HOME}/.local/lib/python3.[0-9]*/site-packages/{,**} mr,
-deny owner @{HOME}/.local/lib/python3.[0-9]*/site-packages/**/__pycache__/ w,
+deny owner @{HOME}/.local/lib/python3.[0-9]*/site-packages/**/__pycache__/{,**} w,
 
 # CHECKME: why are each of these needed?
 /etc/apt/apt.conf.d/{,**} r,
