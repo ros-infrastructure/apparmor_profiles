@@ -16,16 +16,13 @@
 /bin/uname mrix,
 
 # CHECKME: Is this already in abstractions somewhere?
-@{PROC}/@{pid}/cgroup r,
-@{PROC}/@{pid}/cmdline r,
-@{PROC}/@{pid}/environ r,
-@{PROC}/@{pid}/fd/ r,
+owner @{PROC}/@{pid}/cgroup r,
+owner @{PROC}/@{pid}/cmdline r,
+owner @{PROC}/@{pid}/fd/ r,
 
-# CHECKME: is `python3.[0-9]*` too relaxed?
 /usr/bin/python3.[0-9]* ix,
 /usr/local/lib/python3.[0-9]*/dist-packages/{,**} mr,
 
-# CHECKME: is `owner` necessary for non-home paths?
 @{ROS_INSTALL_PYTHON}/site-packages/{,**} mr,
 deny @{ROS_INSTALL_PYTHON}/site-packages/**/__pycache__ w,
 owner @{HOME}/.local/lib/python3.[0-9]*/site-packages/{,**} mr,
