@@ -3,145 +3,77 @@ This folder contains AppArmor profiles for ROS. [AppArmor](http://wiki.apparmor.
 
 ## Installation
 
-To install the profiles, copy the contents of the `profiles` folder from within the profiles directory to `/etc/apparmor.d/`. This will place the necessary ROS abstractions and tunables where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
+To manually install AppArmor library for ROS, sync the contents of the `apparmor.d` directory to `/etc/apparmor.d/`. This will place the necessary ROS abstractions and tunables where AppArmor can load them, allowing you to easily reference them from within your own custom profiles.
 
 ``` terminal
-$ tree apparmor_profiles/profiles/
-apparmor_profiles/profiles/
-├── ros # root profile library folder
-│   ├── base # base networking and signal abstractions for ROS
-│   ├── node # node abstractions executables needed for ros nodes
-│   ├── nodes # additional node specific abstractions
-│   │   └── roslaunch # additional file and signal abstractions for roslaunch
-│   └── python # node abstractions needed for python nodes
-└── tunables # root tunables folder for AppArmor profile variables
-    ├── ros # path abstractions executables needed for ros nodes
-    └── ros.d # additional distro specific abstractions
-        └── kinetic # path definition for default kinetic install
+git clone https://github.com/ros2/sros2.git
+cd sros/sros_apparmor
+sudo rsync -avzh apparmor.d/ /etc/apparmor.d/
 ```
 
-To reload AppArmor and invoke the added profiles, you can restart the the AppArmor service:
+You can restart the the AppArmor service:
 
 ``` terminal
 sudo service apparmor restart
 ```
 
-### ROS
-
-This example requires a ROS installation including the tutorial package. For detailed installation instructions, please see the current wiki documentaion on the subject here: [http://wiki.ros.org/ROS/Installation](http://wiki.ros.org/ROS/Installation)
-
-As a minimal example for Ubuntu 16.04 and ROS Kinetic release:
-
-> Setup your sources.list
-
-``` terminal
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-```
-
-> Set up your keys
-
-``` terminal
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
-```
-
-> Installation
-
-``` terminal
-sudo apt-get update
-sudo apt-get install ros-kinetic-ros-tutorials
-```
-
-> Initialize rosdep
-
-``` terminal
-sudo rosdep init
-rosdep update
-```
-
-> Environment setup
-
-``` terminal
-source /opt/ros/kinetic/setup.bash
-```
-
 ## Example
 
-Once you've installed the ROS AppArmor profiles, you can start using them in other profiles you create. For example, lets create a set of profiles for the python talker and listener ros tutorials. Create a file at `/etc/apparmor.d/rosmaster_talker_listener`, and paste in the fallowing profiles within the new file:
-
-``` terminal
-#include <tunables/global>
-#include <tunables/ros>
-
-/opt/ros/kinetic/bin/rosmaster {
-  #include <ros/base>
-  #include <ros/node>
-  #include <ros/python>
-
-  @{ROS_INSTALL_BIN}/rosmaster rix,
-}
-
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/listener.py {
-  #include <ros/base>
-  #include <ros/node>
-  #include <ros/python>
-
-  @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/listener.py r,
-}
-
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py {
-  #include <ros/base>
-  #include <ros/node>
-  #include <ros/python>
-
-  @{ROS_INSTALL_SHARE}/rospy_tutorials/001_talker_listener/talker.py r,
-}
-```
+Once you've installed the ROS AppArmor profiles, you can start using them in other profiles you create. For example, take a look at `/etc/apparmor.d/opt.ros.distro.lib.demo_nodes_py`.
 
 Then use apparmor_parser to load a profile into the kernel.
 
 ```
-sudo apparmor_parser -r /etc/apparmor.d/rosmaster_talker_listener
+sudo apparmor_parser -r etc/apparmor.d/opt.ros.distro.lib.demo_nodes_py
 ```
 
 Finally we can simply run the ROS nodes with the enforced security profile by calling them all directly from three separate terminals:
 
 ``` terminal
 # terminal 1
-rosmaster
+ros2 run demo_nodes_py talker
 
 # terminal 2
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/listener.py
-
-# terminal 3
-/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py
-
+ros2 run demo_nodes_py listener
 ```
 
 Now, let us go ahead and modify the source code of the talker node to ether write outside of the running users own `.ros` directory, or read outside of the ROS installation directories.
 
 ``` diff
 ...
-if __name__ == '__main__':
+def main(args=None):
 +    with open('/var/crash/evil.sh', 'w') as f:
 +        f.write('echo failing evil laughter!\n'
-+                'rm -rf /var/crash/* /\n')
-    try:
-        talker()
-    except rospy.ROSInterruptException:
-        pass
++            'rm -rf /var/crash/* /\n')
+    rclpy.init(args=args)
 ```
 
 If we rerun our talker node again, we'll see that writing the evil script to that external directory has been foiled:
 
 ```
-$ /opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py
+$ ros2 run demo_nodes_py talker
 Traceback (most recent call last):
-  File "/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py", line 53, in <module>
+  File "/opt/ros/dashing/lib/demo_nodes_py/talker", line 11, in <module>
+    load_entry_point('demo-nodes-py==0.7.1', 'console_scripts', 'talker')()
+  File "/opt/ros/dashing/lib/python3.6/site-packages/demo_nodes_py/topics/talker.py", line 39, in main
     with open('/var/crash/evil.sh', 'w') as f:
-IOError: [Errno 13] Permission denied: '/var/crash/evil.sh'
+PermissionError: [Errno 13] Permission denied: '/var/crash/evil.sh'
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 145, in apport_excepthook
+    os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640), 'wb') as f:
+PermissionError: [Errno 13] Permission denied: '/var/crash/_opt_ros_dashing_lib_demo_nodes_py_talker.1000.crash'
+
+Original exception was:
+Traceback (most recent call last):
+  File "/opt/ros/dashing/lib/demo_nodes_py/talker", line 11, in <module>
+    load_entry_point('demo-nodes-py==0.7.1', 'console_scripts', 'talker')()
+  File "/opt/ros/dashing/lib/python3.6/site-packages/demo_nodes_py/topics/talker.py", line 39, in main
+    with open('/var/crash/evil.sh', 'w') as f:
+PermissionError: [Errno 13] Permission denied: '/var/crash/evil.sh'
 ```
 
 We can also see the attempted violations from `/var/log/kern.log`:
 ```
-Jun  7 17:28:53 nxt kernel: [341555.400383] audit: type=1400 audit(1465345733.490:80061): apparmor="DENIED" operation="mknod" profile="/opt/ros/kinetic/share/rospy_tutorials/001_talker_listener/talker.py" name="/var/crash/evil.sh" pid=27380 comm="python" requested_mask="c" denied_mask="c" fsuid=1000 ouid=1000
+Jun 13 14:42:20 dox kernel: [105991.583840] audit: type=1400 audit(1560462140.953:21611): apparmor="DENIED" operation="mknod" profile="ros2.demo_nodes_py.talker" name="/var/crash/evil.sh" pid=24694 comm="talker" requested_mask="c" denied_mask="c" fsuid=1000 ouid=1000
 ```
