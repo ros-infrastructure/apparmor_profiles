@@ -58,19 +58,6 @@ Traceback (most recent call last):
   File "/opt/ros/dashing/lib/python3.6/site-packages/demo_nodes_py/topics/talker.py", line 39, in main
     with open('/var/crash/evil.sh', 'w') as f:
 PermissionError: [Errno 13] Permission denied: '/var/crash/evil.sh'
-Error in sys.excepthook:
-Traceback (most recent call last):
-  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 145, in apport_excepthook
-    os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640), 'wb') as f:
-PermissionError: [Errno 13] Permission denied: '/var/crash/_opt_ros_dashing_lib_demo_nodes_py_talker.1000.crash'
-
-Original exception was:
-Traceback (most recent call last):
-  File "/opt/ros/dashing/lib/demo_nodes_py/talker", line 11, in <module>
-    load_entry_point('demo-nodes-py==0.7.1', 'console_scripts', 'talker')()
-  File "/opt/ros/dashing/lib/python3.6/site-packages/demo_nodes_py/topics/talker.py", line 39, in main
-    with open('/var/crash/evil.sh', 'w') as f:
-PermissionError: [Errno 13] Permission denied: '/var/crash/evil.sh'
 ```
 
 We can also see the attempted violations from `/var/log/kern.log`:
