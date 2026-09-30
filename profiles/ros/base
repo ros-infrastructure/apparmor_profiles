@@ -1,13 +1,3 @@
-# ------------------------------------------------------------------
-#
-#    Copyright (C) 2016 Open Source Robotics Foundation
-#
-#    This program is free software; you can redistribute it and/or
-#    modify it under the terms of version 2 of the GNU General Public
-#    License published by the Free Software Foundation.
-#
-# ------------------------------------------------------------------
-
 # Include base and networking abstractions needed for ros
 #include <abstractions/base>
 #include <abstractions/nameservice>
